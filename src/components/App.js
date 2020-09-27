@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import './App.css';
-import Meme from '../abis/Meme.json'
+import Degree from '../abis/Degree.json'
 
 const ipfsClient = require('ipfs-http-client')
 const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' }) // leaving out the arguments will default to these values
@@ -32,12 +32,12 @@ class App extends Component {
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0] })
     const networkId = await web3.eth.net.getId()
-    const networkData = Meme.networks[networkId]
+    const networkData = Degree.networks[networkId]
     if(networkData) {
-      const contract = web3.eth.Contract(Meme.abi, networkData.address)
+      const contract = web3.eth.Contract(Degree.abi, networkData.address)
       this.setState({ contract })
-      const memeHash = await contract.methods.get().call()
-      this.setState({ memeHash })
+      const degreeHash = await contract.methods.get().call()
+      this.setState({ degreeHash })
     } else {
       window.alert('Smart contract not deployed to detected network.')
     }
@@ -47,7 +47,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      memeHash: '',
+      degreeHash: '',
       contract: null,
       web3: null,
       buffer: null,
@@ -76,7 +76,7 @@ class App extends Component {
         return
       }
        this.state.contract.methods.set(result[0].hash).send({ from: this.state.account }).then((r) => {
-         return this.setState({ memeHash: result[0].hash })
+         return this.setState({ degreeHash: result[0].hash })
        })
     })
   }
@@ -103,7 +103,7 @@ class App extends Component {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img alt="test" src={`https://ipfs.infura.io/ipfs/${this.state.memeHash}`} />
+                  <img alt="test" src={`https://ipfs.infura.io/ipfs/${this.state.degreeHash}`} />
                 </a>
                 <p>&nbsp;</p>
                 <h2>Upload Degree</h2>

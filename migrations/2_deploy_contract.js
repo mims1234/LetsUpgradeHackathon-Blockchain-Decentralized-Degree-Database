@@ -1,5 +1,5 @@
-const Meme = artifacts.require("Meme");
+const Degree = artifacts.require("Degree");
 
 module.exports = function(deployer) {
-  deployer.deploy(Meme);
+    deployer.deploy(Degree);
 };
