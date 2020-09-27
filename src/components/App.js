@@ -82,6 +82,16 @@ class App extends Component {
   }
 
   render() {
+    var conditional = <p>Submit a PDF</p>
+    if(this.state.degreeHash != ''){
+      conditional = <a
+        href={`https://ipfs.infura.io/ipfs/${this.state.degreeHash}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <button className="btn btn-primary btn-sm">View</button>
+      </a>
+    }
     return (
       <div>
         <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -98,13 +108,8 @@ class App extends Component {
           <div className="row">
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
-                <a
-                  href=""
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img alt="test" src={`https://ipfs.infura.io/ipfs/${this.state.degreeHash}`} />
-                </a>
+                {conditional}
+                
                 <p>&nbsp;</p>
                 <h2>Upload Degree</h2>
                 <p>&nbsp;</p>
